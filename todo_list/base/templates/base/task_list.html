@@ -1,0 +1,36 @@
+<h1>My First Django ToDo App</h1>
+{% if request.user.is_authenticated %}
+<span>{{request.user}}</span>
+<a href="/logout/">Logout</a>
+{% else %}
+<a href="/login">Login</a>
+{% endif %}
+<br />
+<a href="/create/">Create Task</a>
+
+<form method="GET">
+  <input type="text" name="search-area" value="{{search_input}}">
+  <input type="submit" value="Search">
+</form>
+<table>
+  <tr>
+    <th>Items</th>
+    <th>Link</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+
+  {% for task in Tasks %}
+  <tr>
+    <td>{{task.title}}</td>
+
+    <td><a href="/task/{{task.id}}/">View</a></td>
+    <td><a href="/update/{{task.id}}/">Edit</a></td>
+    <td><a href="/delete/{{task.id}}/">Delete</a></td>
+  </tr>
+  {% empty %}
+  <tr>
+    <h3>No items to show</h3>
+  </tr>
+  {% endfor %}
+</table>
